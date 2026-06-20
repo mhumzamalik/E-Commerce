@@ -9,6 +9,7 @@ import Readytowear from "./pages/Readytowear"
 import ProductDetail from "./pages/ProductDetail"
 import ProductDetailMen from "./pages/ProductDetailMen";
 import ProductDetailFragnance from "./pages/ProductDetailFragnance";
+import ProductDetailReady from "./pages/ProductDetailReady";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/product/:id" element={<div className="pt-25"><ProductDetail /></div>} />
         <Route path="/product-men/:id" element={<div className="pt-25"><ProductDetailMen /></div>} />
         <Route path="/product-fragnance/:id" element={<div className="pt-25"><ProductDetailFragnance /></div>}/>
+        <Route path="/readytowear/:id" element={<div className="pt-25"><ProductDetailReady /></div>}/>
 
       </Routes>
     </>

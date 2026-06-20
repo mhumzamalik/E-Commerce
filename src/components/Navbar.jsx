@@ -12,7 +12,6 @@ export default function Navbar() {
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-
   const isDrawerOpen = menuOpen || searchOpen || userOpen || cartOpen;
 
   return (
@@ -75,6 +74,17 @@ export default function Navbar() {
       {/* Hamburger Drawer */}
       <Drawer open={menuOpen} onClose={() => setMenuOpen(false)}>
         <h2 className="text-5xl font-bold mb-4">SAPPHIRE</h2>
+        <ul className="flex gap-6 text-2xl font-bold mb-3">
+          <li className="hover:underline">
+            <Link to="/women" onClick={() => setMenuOpen(false)}>Woman</Link>
+          </li>
+          <li className="hover:underline" >
+            <Link to="/men" onClick={() => setMenuOpen(false)}>Man</Link>
+          </li>
+          <li className="hover:underline">
+            <Link to="/fragnance" onClick={() => setMenuOpen(false)}>Fragnance</Link>
+          </li>
+        </ul>
         <ul className="space-y-4 text-lg">
           <li>
             <Link to="/newin" onClick={() => setMenuOpen(false)}>
