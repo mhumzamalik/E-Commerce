@@ -7,6 +7,8 @@ import Fragnance from "./pages/Fragnance"
 import Newin from "./pages/Newin"
 import Readytowear from "./pages/Readytowear"
 import ProductDetail from "./pages/ProductDetail"
+import ProductDetailMen from "./pages/ProductDetailMen";
+import ProductDetailFragnance from "./pages/ProductDetailFragnance";
 
 function App() {
   return (
@@ -19,7 +21,9 @@ function App() {
         <Route path="/fragnance" element={<div className="pt-25"><Fragnance /></div>} />
         <Route path="/newin" element={<div className="pt-25"><Newin /></div>} />
         <Route path="/readytowear" element={<div className="pt-25 disabled"><Readytowear /></div>} />
-        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/product/:id" element={<div className="pt-25"><ProductDetail /></div>} />
+        <Route path="/product-men/:id" element={<div className="pt-25"><ProductDetailMen /></div>} />
+        <Route path="/product-fragnance/:id" element={<div className="pt-25"><ProductDetailFragnance /></div>}/>
 
       </Routes>
     </>
