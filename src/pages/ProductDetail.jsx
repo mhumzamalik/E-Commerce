@@ -1,8 +1,11 @@
 import { useParams, useLocation } from "react-router-dom";
+import { useCart } from "../context/CartContext";
+
 
 export default function ProductDetail() {
   const { id } = useParams();
   const location = useLocation();
+  const { addToCart } = useCart();
 
   const product = location.state?.product;
 
@@ -32,7 +35,9 @@ export default function ProductDetail() {
             <br/>Trouser <br/>Dyed Cotton Trouser 2.5m <br/>Fabric: Cotton <br/>Colour: Black & Gray<br/><br/>
             Note: Actual product color may vary slightly from the image.
           </p>
-          <button className="bg-black mt-5 text-white px-6 py-3 font-semibold hover:bg-gray-800 transition">
+          <button
+          onClick={() => addToCart(product)}
+          className="bg-black mt-5 cursor-pointer text-white px-6 py-3 font-semibold hover:bg-gray-800 transition">
             ADD TO BAG
           </button>
         </div>

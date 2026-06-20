@@ -1,11 +1,13 @@
 // src/components/ProductDetailReady.jsx
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useCart } from "../context/CartContext";
 
 export default function ProductDetailReady() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { addToCart } = useCart();
 
   useEffect(() => {
     fetch(`https://fakestoreapi.com/products/${id}`)
@@ -30,7 +32,9 @@ export default function ProductDetailReady() {
         <h2 className="text-2xl font-bold mb-2">{product.title}</h2>
         <p className="text-lg mb-4">Rs.{(product.price * 280).toFixed(0)}</p>
         <p className="text-sm text-gray-500 mb-6">Category: {product.category}</p>
-        <button className="bg-black text-white px-6 py-3 font-semibold hover:bg-gray-800 transition">
+        <button 
+        onClick={() => addToCart(product)}
+        className="bg-black text-white cursor-pointer px-6 py-3 font-semibold hover:bg-gray-800 transition">
           ADD TO BAG
         </button>
         <div className="mt-8">

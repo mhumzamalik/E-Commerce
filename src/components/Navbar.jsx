@@ -2,12 +2,14 @@
 import { useState } from "react";
 import { FiMenu, FiSearch, FiUser, FiShoppingBag } from "react-icons/fi";
 import Drawer from "./Drawer";
+import { useCart } from "../context/CartContext";
 import { Link, useLocation } from "react-router-dom";
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+  const { cartItems, removeFromCart } = useCart();
   const location = useLocation();
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -54,10 +56,7 @@ export default function Navbar() {
 
         {/* Right side */}
         <div className="flex items-center space-x-6">
-          <FiSearch
-            className="text-2xl cursor-pointer"
-            onClick={() => setSearchOpen(true)}
-          />
+          <FiSearch className="text-2xl cursor-not-allowed opacity-50" />
           <FiUser
             className="text-2xl cursor-pointer"
             onClick={() => setUserOpen(true)}
@@ -67,6 +66,11 @@ export default function Navbar() {
               className="text-2xl cursor-pointer"
               onClick={() => setCartOpen(true)}
             />
+            {cartItems.length > 0 && (
+              <span className="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full px-2">
+                {cartItems.length}
+              </span>
+            )}
           </div>
         </div>
       </nav>
@@ -76,13 +80,19 @@ export default function Navbar() {
         <h2 className="text-5xl font-bold mb-4">SAPPHIRE</h2>
         <ul className="flex gap-6 text-2xl font-bold mb-3">
           <li className="hover:underline">
-            <Link to="/women" onClick={() => setMenuOpen(false)}>Woman</Link>
-          </li>
-          <li className="hover:underline" >
-            <Link to="/men" onClick={() => setMenuOpen(false)}>Man</Link>
+            <Link to="/women" onClick={() => setMenuOpen(false)}>
+              Woman
+            </Link>
           </li>
           <li className="hover:underline">
-            <Link to="/fragnance" onClick={() => setMenuOpen(false)}>Fragnance</Link>
+            <Link to="/men" onClick={() => setMenuOpen(false)}>
+              Man
+            </Link>
+          </li>
+          <li className="hover:underline">
+            <Link to="/fragnance" onClick={() => setMenuOpen(false)}>
+              Fragnance
+            </Link>
           </li>
         </ul>
         <ul className="space-y-4 text-lg">
@@ -169,9 +179,6 @@ export default function Navbar() {
             </Link>
           </li>
         </ul>
-        <p className="mt-6 text-gray-600">
-          Discover our latest monochrome must-haves.
-        </p>
       </Drawer>
 
       {/* Search Drawer */}
@@ -216,19 +223,65 @@ export default function Navbar() {
       {/* Cart Drawer */}
       <Drawer open={cartOpen} onClose={() => setCartOpen(false)}>
         <h2 className="text-xl font-bold mb-4">Your Cart</h2>
-        <div className="space-y-4">
-          <div className="flex justify-between items-center">
-            <span>Monochrome Jacket</span>
-            <span>$120</span>
-          </div>
-          <div className="flex justify-between items-center">
-            <span>Luxury Perfume</span>
-            <span>$80</span>
-          </div>
-        </div>
-        <button className="mt-6 w-full bg-black text-white py-2">
-          Checkout
-        </button>
+
+        {cartItems.length === 0 ? (
+          <p className="text-gray-500">Your bag is empty.</p>
+        ) : (
+          <>
+            <div className="space-y-4">
+              {cartItems.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex items-center justify-between border-b pb-2"
+                >
+                  {/* Product image */}
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-16 h-16 object-cover rounded mr-3"
+                  />
+
+                  {/* Product info */}
+                  <div className="flex-1">
+                    <span className="block text-sm font-medium">
+                      {item.title}
+                    </span>
+                    <span className="block text-xs text-gray-500">
+                      Rs.{(item.price * 280).toFixed(0)}
+                    </span>
+                  </div>
+
+                  {/* Remove button */}
+                  <button
+                    onClick={() => removeFromCart(item.id)}
+                    className="text-red-500 text-xs ml-2"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            {/* Subtotal */}
+            <div className="border-t pt-4 mt-4 flex justify-between font-semibold">
+              <span>Subtotal</span>
+              <span>
+                Rs.
+                {cartItems
+                  .reduce((sum, item) => sum + item.price * 280, 0)
+                  .toFixed(0)}
+              </span>
+            </div>
+
+            <Link
+              to="/checkout"
+              className="mt-6 block w-full bg-black text-white py-2 text-center"
+              onClick={() => setCartOpen(false)}
+            >
+              Checkout
+            </Link>
+          </>
+        )}
       </Drawer>
     </>
   );

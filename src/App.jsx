@@ -10,6 +10,7 @@ import ProductDetail from "./pages/ProductDetail"
 import ProductDetailMen from "./pages/ProductDetailMen";
 import ProductDetailFragnance from "./pages/ProductDetailFragnance";
 import ProductDetailReady from "./pages/ProductDetailReady";
+import Checkout from "./pages/Checkout";
 
 function App() {
   return (
@@ -26,6 +27,8 @@ function App() {
         <Route path="/product-men/:id" element={<div className="pt-25"><ProductDetailMen /></div>} />
         <Route path="/product-fragnance/:id" element={<div className="pt-25"><ProductDetailFragnance /></div>}/>
         <Route path="/readytowear/:id" element={<div className="pt-25"><ProductDetailReady /></div>}/>
+        <Route path="/checkout" element={<div className="pt-10"><Checkout /></div>}/>
+        
 
       </Routes>
     </>
