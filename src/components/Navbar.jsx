@@ -23,7 +23,7 @@ export default function Navbar() {
         } ${
           location.pathname === "/"
             ? "bg-transparent text-white"
-            : "bg-white text-black shadow-md"
+            : "bg-white text-black"
         }`}
       >
         <div className="flex items-center space-x-4">
@@ -56,16 +56,16 @@ export default function Navbar() {
         {/* Right side */}
         <div className="flex items-center space-x-6">
           <FiSearch
-            className="text-xl cursor-pointer"
+            className="text-2xl cursor-pointer"
             onClick={() => setSearchOpen(true)}
           />
           <FiUser
-            className="text-xl cursor-pointer"
+            className="text-2xl cursor-pointer"
             onClick={() => setUserOpen(true)}
           />
           <div className="relative">
             <FiShoppingBag
-              className="text-xl cursor-pointer"
+              className="text-2xl cursor-pointer"
               onClick={() => setCartOpen(true)}
             />
           </div>
