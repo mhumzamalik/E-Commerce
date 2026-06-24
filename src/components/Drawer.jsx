@@ -1,27 +1,44 @@
 // src/components/Drawer.jsx
+import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
 export default function Drawer({ open, onClose, children }) {
   return (
-    <>
-      <div
-        className={`fixed inset-0 bg-black z-40 transition-opacity duration-300 ${
-          open ? "bg-opacity-40 opacity-70" : "bg-opacity-0 opacity-0 pointer-events-none"
-        }`}
-        onClick={onClose}
-      ></div>
+    <AnimatePresence>
+      {open && (
+        <>
+          {/* Overlay */}
+          <motion.div
+            className="fixed inset-0 bg-black bg-opacity-50 z-40"
+            onClick={onClose}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.5 }}
+            exit={{ opacity: 0 }}
+          />
 
-      <div
-        className={`fixed top-0 right-0 h-full w-96 bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out ${
-          open ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        <button
-          className="absolute top-4 right-4 cursor-pointer text-gray-600 hover:text-black"
-          onClick={onClose}
-        >
-          ✕
-        </button>
-        <div className="p-6">{children}</div>
-      </div>
-    </>
+          {/* Drawer panel */}
+          <motion.div
+            className="fixed top-0 right-0 h-full w-100 bg-white shadow-lg z-50 flex flex-col"
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "tween", duration: 0.3 }}
+          >
+            {/* Close button */}
+            <div className="flex justify-end p-4 border-b">
+              <button
+                onClick={onClose}
+                className="text-gray-600 hover:text-black text-lg"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Scrollable content */}
+            <div className="flex-1 overflow-y-auto p-4">{children}</div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
   );
 }

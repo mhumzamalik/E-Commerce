@@ -2,7 +2,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
 
-export default function ProductDetail() {
+export default function ProductDetail({products}) {
   const { id } = useParams();
   const location = useLocation();
   const { addToCart } = useCart();
@@ -36,10 +36,18 @@ export default function ProductDetail() {
             Note: Actual product color may vary slightly from the image.
           </p>
           <button
-          onClick={() => addToCart(product)}
-          className="bg-black mt-5 cursor-pointer text-white px-6 py-3 font-semibold hover:bg-gray-800 transition">
-            ADD TO BAG
-          </button>
+        onClick={() =>
+          addToCart({
+            id: product.id,
+            title: product.title,
+            price: Number(product.price), // ✅ ensures subtotal works
+            image: product.image
+          })
+        }
+        className="mt-4 bg-black text-white px-6 py-2 cursor-pointer"
+      >
+        Add to Bag
+      </button>
         </div>
       </div>
     </section>

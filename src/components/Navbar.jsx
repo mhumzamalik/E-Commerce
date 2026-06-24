@@ -34,7 +34,7 @@ export default function Navbar() {
           />
           <Link to="/">
             <h1 className="text-6xl font-bold uppercase tracking-widest">
-              SAPPHIRE
+              Maria
             </h1>
           </Link>
           {location.pathname === "/" && (
@@ -77,7 +77,7 @@ export default function Navbar() {
 
       {/* Hamburger Drawer */}
       <Drawer open={menuOpen} onClose={() => setMenuOpen(false)}>
-        <h2 className="text-5xl font-bold mb-4">SAPPHIRE</h2>
+        <h2 className="text-8xl font-bold mb-4">MARIA</h2>
         <ul className="flex gap-6 text-2xl font-bold mb-3">
           <li className="hover:underline">
             <Link to="/women" onClick={() => setMenuOpen(false)}>
@@ -268,7 +268,11 @@ export default function Navbar() {
               <span>
                 Rs.
                 {cartItems
-                  .reduce((sum, item) => sum + item.price * 280, 0)
+                  .reduce(
+                    (sum, item) =>
+                      sum + Number(item.price) * 280 * item.quantity,
+                    0,
+                  )
                   .toFixed(0)}
               </span>
             </div>
